@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CmdWebview2", "CmdWebview2\CmdWebview2.vcxproj", "{351F359E-1CE4-434C-B100-2203F4000555}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{351F359E-1CE4-434C-B100-2203F4000555}.Debug|x64.ActiveCfg = Debug|x64
+		{351F359E-1CE4-434C-B100-2203F4000555}.Debug|x64.Build.0 = Debug|x64
+		{351F359E-1CE4-434C-B100-2203F4000555}.Debug|x86.ActiveCfg = Debug|Win32
+		{351F359E-1CE4-434C-B100-2203F4000555}.Debug|x86.Build.0 = Debug|Win32
+		{351F359E-1CE4-434C-B100-2203F4000555}.Release|x64.ActiveCfg = Release|x64
+		{351F359E-1CE4-434C-B100-2203F4000555}.Release|x64.Build.0 = Release|x64
+		{351F359E-1CE4-434C-B100-2203F4000555}.Release|x86.ActiveCfg = Release|Win32
+		{351F359E-1CE4-434C-B100-2203F4000555}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42C473F5-2C6B-4B0B-A0A3-A17C210BF86D}
+	EndGlobalSection
+EndGlobal
