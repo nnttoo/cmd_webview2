@@ -29,3 +29,7 @@ Next, type the command:
 
 
 You can see a complete example in the example folder.
+
+# Changing the Icon
+
+To change the icon on the webview window, you can use the tool [Resource Hacker](http://www.angusj.com/resourcehacker/).
