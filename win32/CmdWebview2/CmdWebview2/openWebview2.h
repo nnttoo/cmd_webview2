@@ -76,16 +76,37 @@ void realOpenWebview2(
 						EventRegistrationToken token;
 						webview->add_NavigationStarting(Microsoft::WRL::Callback<ICoreWebView2NavigationStartingEventHandler>(
 							[](ICoreWebView2* webview, ICoreWebView2NavigationStartingEventArgs* args) -> HRESULT {
+								 
+								/*
 								wil::unique_cotaskmem_string uri;
 								args->get_Uri(&uri);
 								std::wstring source(uri.get());
 								if (source.substr(0, 5) != L"https") {
 									args->put_Cancel(true);
 								}
+								*/
 								return S_OK;
 							}).Get(), &token);
+						if (config.title == "auto") {
+							webview->add_DocumentTitleChanged(Microsoft::WRL::Callback<ICoreWebView2DocumentTitleChangedEventHandler>(
+								[hWnd](ICoreWebView2* webview, IUnknown* args) -> HRESULT {
+									wil::unique_cotaskmem_string title;
+									webview->get_DocumentTitle(&title);
 
-						// </CommunicationHostWeb>
+									SetWindowTextW(hWnd, title.get());
+
+									/*
+									wil::unique_cotaskmem_string uri;
+									args->get_Uri(&uri);
+									std::wstring source(uri.get());
+									if (source.substr(0, 5) != L"https") {
+										args->put_Cancel(true);
+									}
+									*/
+									return S_OK;
+								}).Get(), &token);
+						}
+						
 
 						return S_OK;
 					}).Get());
@@ -139,7 +160,9 @@ void openWebview2(
 	config.url = ((r = argmap.getVal("url")) != "") ? r : "https://google.com";
 	config.modewindow = ((r = argmap.getVal("kiosk")) != "") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
 	config.maximized = ((r = argmap.getVal("maximize")) != "") ? SW_MAXIMIZE : SW_NORMAL;
-	config.title = ((r = argmap.getVal("title")) != "") ? r : "helo";
+	config.title = ((r = argmap.getVal("title")) != "") ? r : "auto";
+
+	config.url = "http://localhost:2020";
 
 	HINSTANCE hInst; 
 	// Store instance handle in our global variable

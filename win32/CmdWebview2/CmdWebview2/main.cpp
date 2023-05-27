@@ -34,7 +34,9 @@ int CALLBACK WinMain(
 	std::cout << url << std::endl;
 
 
-	std::string fun = arg.getVal("fun");  
+	std::string fun = arg.getVal("fun"); 
+	 
+
 	if (fun == "openwebview") {
 		openWebview2(hInstance,arg);
 	}
