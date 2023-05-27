@@ -18,8 +18,7 @@
  
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); 
-static TCHAR szWindowClass[] = _T("DesktopApp"); 
-static TCHAR szTitle[] = _T("WebView sample"); 
+static TCHAR szWindowClass[] = _T("DesktopApp");  
 static wil::com_ptr<ICoreWebView2Controller> webviewController; 
 static wil::com_ptr<ICoreWebView2> webview;
 

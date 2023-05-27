@@ -24,19 +24,31 @@ To use this package, you need to download and install the Microsoft Edge WebView
 Next, type the command:
 
 ```sh
-./CmdWebview2.exe fun=openwebview url=https://quran-terjemah.org
+./CmdWebview2.exe \fun=openwebview url=https://quran-terjemah.org
 ```
+ 
 
-OR
+example 1
 
 ```sh
 ./CmdWebview2.exe fun=openwebview url=https://google.com width=900 height=500
 ```
+ 
 
-OR
-
+example 2
 ```sh
-./CmdWebview2.exe fun=openwebview url=https://quran-terjemah.org width=900 height=500 kiosk=true maximize=true
+./CmdWebview2.exe fun=openwebview url=https://google.com width=900 height=500 kiosk=true maximize=true
+```
+
+example 3
+```sh
+#!/bin/sh
+./bin/x64/CmdWebview2.exe \
+fun=openwebview \
+url=https://quran-terjemah.org \
+width=900 \
+height=500 \
+title=Title%20must%20use%20URLencode
 ```
 
 You can see a complete example in the example folder.
