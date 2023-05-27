@@ -50,6 +50,47 @@ width=900 \
 height=500 \
 title=Title%20must%20use%20URLencode
 ```
+# Use with nodejs
+
+Nodejs open webview
+```js
+    var exec = require('child_process').execFile;
+    exec(exeFilePath,
+    [
+        "fun=openwebview",
+        "url=https://quran-terjemah.org",
+        "width=1300", 
+        "height=600",
+        //"kiosk=true",
+        //"maximize=true",
+        "title=Windows%20Title%20Test",
+
+    ], (err, data) => {
+        console.log(data)
+    })
+```
+
+
+Nodejs open file dialog
+```js
+    var exec = require('child_process').execFile;
+    exec(exeFilePath,
+    [
+        "fun=openFileDialog", 
+        "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+
+    ], (err, data) => { 
+
+       let filepath = "";
+       for(let l of data.split("\r\n")){
+            if(l.startsWith("result:")){
+                filepath = l.substring(7, l.length);
+            }
+       } 
+
+        console.log(filepath);
+    })
+```
 
 You can see a complete example in the example folder.
 
