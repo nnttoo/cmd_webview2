@@ -31,10 +31,17 @@ std::wstring openFileDialog(
 
     std::wcout << wfilter << std::endl;
     std::cout << filter << std::endl;
+    
+    /*
+    Find window owner by class name
+    */
+    std::string classname = argmap.getVal("wndClassName");
+    std::wstring wndClassnme = (classname != "")? ConvertToWideString(classname) : L"mywindowsClassName"; 
+    HWND hWndOwner = FindWindowW(wndClassnme.c_str(), NULL);
 
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = NULL;
+    ofn.hwndOwner = hWndOwner;
     ofn.lpstrFile = szFile;
     ofn.nMaxFile = sizeof(szFile);
     ofn.lpstrFilter = wfilter.c_str();
@@ -55,12 +62,19 @@ std::wstring openFileDialog(
 
 }
 
-std::wstring openDirDialog() {
+std::wstring openDirDialog(
+    ArgMap argmap
+) {
     BROWSEINFO bi;
     TCHAR szDir[MAX_PATH];
 
+
+    std::string classname = argmap.getVal("wndClassName");
+    std::wstring wndClassnme = (classname != "") ? ConvertToWideString(classname) : L"mywindowsClassName";
+    HWND hWndOwner = FindWindowW(wndClassnme.c_str(), NULL);
+
     ZeroMemory(&bi, sizeof(bi));
-    bi.hwndOwner = NULL;
+    bi.hwndOwner = hWndOwner;
     bi.pidlRoot = NULL;
     bi.pszDisplayName = szDir;
     bi.lpszTitle = TEXT("Pilih Direktori");

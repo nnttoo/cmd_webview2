@@ -45,7 +45,7 @@ int CALLBACK WinMain(
 		std::wcout << L"result: " << result << std::endl; 
 	}
 	else if (fun == "openFolderDialog") {
-		std::wstring result = openDirDialog();
+		std::wstring result = openDirDialog(arg);
 		std::wcout << L"result: " << result << std::endl;
 	}
 		

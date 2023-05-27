@@ -16,8 +16,9 @@ function openWebview(address){
     exec(exeFilePath,
         [
             "fun=openwebview",
+            "wndClassName=aplikasiWebView",
             "url=" + encodeURIComponent(address),
-            "width=1300", 
+            "width=900", 
             "height=600",
             //"kiosk=true",
             //"maximize=true",
@@ -29,13 +30,71 @@ function openWebview(address){
         })
 }
 
+function openFileDilog(){
+    return new Promise((r,x)=>{
+        exec(exeFilePath,
+            [
+                "fun=openFileDialog", 
+                "wndClassName=aplikasiWebView",
+                "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+        
+            ], (err, data) => { 
+        
+               let filepath = "";
+               for(let l of data.split("\r\n")){
+                    if(l.startsWith("result:")){
+                        filepath = l.substring(7, l.length);
+                    }
+               } 
+               
+               r(filepath); 
+            })
+    })
+}
+function openFileDilogFolder(){
+    return new Promise((r,x)=>{
+        exec(exeFilePath,
+            [
+                "fun=openFolderDialog", 
+                "wndClassName=aplikasiWebView",
+        
+            ], (err, data) => { 
+        
+               let filepath = "";
+               for(let l of data.split("\r\n")){
+                    if(l.startsWith("result:")){
+                        filepath = l.substring(7, l.length);
+                    }
+               } 
+               
+               r(filepath); 
+            })
+    })
+}
+
+
+
+
+
 const app = express();
-const port = 0 // random port
+const port = 0; // 0 random port
 
 app.use(express.static(path.join(__dirname,'html')))
+app.get("/openfiledialog",async (r,x)=>{
+
+    let filepath = await openFileDilog();
+
+    x.send(filepath)
+})
+app.get("/openfolderdialog",async (r,x)=>{
+
+    let filepath = await openFileDilogFolder();
+
+    x.send(filepath)
+})
 
 let server = app.listen(port, () => {
     let rport = server.address().port;
-    console.log(`Example app listening on port ${rport}`)
+    console.log(`http://localhost:${rport}`)
     openWebview("http://localhost:" + rport);
   })

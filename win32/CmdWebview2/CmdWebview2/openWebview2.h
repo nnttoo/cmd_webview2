@@ -17,8 +17,7 @@
 #include "argtools.h"
  
 
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); 
-static TCHAR szWindowClass[] = _T("DesktopApp");  
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);  
 static wil::com_ptr<ICoreWebView2Controller> webviewController; 
 static wil::com_ptr<ICoreWebView2> webview;
 
@@ -126,6 +125,9 @@ void openWebview2(
 	HICON hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
 
+	std::string classname = argmap.getVal("wndClassName");
+	std::wstring wndClassnme = (classname != "") ? ConvertToWideString(classname) : L"mywindowsClassName";
+
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc = WndProc;
@@ -138,7 +140,7 @@ void openWebview2(
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
-	wcex.lpszClassName = szWindowClass;
+	wcex.lpszClassName = wndClassnme.c_str();
 	wcex.hIconSm = hIcon;
 
 
@@ -168,7 +170,7 @@ void openWebview2(
 	// Store instance handle in our global variable
 	hInst = hInstance;
 	HWND hWnd = CreateWindowW(
-		szWindowClass,
+		wndClassnme.c_str(),
 		ConvertToWideString(config.title).c_str(),
 		config.modewindow,
 		CW_USEDEFAULT, CW_USEDEFAULT,
