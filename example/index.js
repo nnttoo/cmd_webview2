@@ -1,12 +1,71 @@
 var exec = require('child_process').execFile;
 
-exec("../win32/CmdWebview2/x64/Debug/CmdWebview2.exe",
+var arc = require('os').arch();
+
+if(arc=="x64"){
+    console.log("using x64")
+}
+
+
+let exeFilePath  = "../bin/x64/CmdWebview2.exe";
+let cmd = "openweb";
+if(process.argv.length > 2){
+
+    cmd = process.argv[2];
+}
+
+
+if(cmd == "openweb"){
+    exec(exeFilePath,
     [
-        "fun=openwindow",
+        "fun=openwebview",
         "url=https://quran-terjemah.org",
-        "width=1300",
-        "max", 
+        "width=1300", 
+        "height=600",
+        //"kiosk=true",
+        //"maximize=true",
+        "title=Windows%20Title%20Test",
 
     ], (err, data) => {
         console.log(data)
     })
+} else if(cmd == "openfile"){
+    exec(exeFilePath,
+    [
+        "fun=openFileDialog", 
+        "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+
+    ], (err, data) => { 
+
+       let filepath = "";
+       for(let l of data.split("\r\n")){
+            if(l.startsWith("result:")){
+                filepath = l.substring(7, l.length);
+            }
+       } 
+
+        console.log(filepath);
+    })
+
+} else if(cmd == "opendir"){
+    exec(exeFilePath,
+    [
+        "fun=openFolderDialog",  
+
+    ], (err, data) => { 
+
+       let filepath = "";
+       for(let l of data.split("\r\n")){
+            if(l.startsWith("result:")){
+                filepath = l.substring(7, l.length);
+            }
+       } 
+
+        console.log(filepath);
+    })
+
+}
+
+// run with command :
+// node index.js openfile
+

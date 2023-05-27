@@ -29,6 +29,15 @@
     <ClInclude Include="tools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="argtools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="openWebview2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="openFolderDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CmdWebview2.rc">
@@ -39,5 +48,8 @@
     <Image Include="..\..\icon\favicon_io (2)\favicon.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>
