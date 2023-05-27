@@ -10,6 +10,8 @@ if(arc=="x64"){
     exeFilePath = "../../bin/x64/CmdWebview2.exe";
 }
 
+exeFilePath = path.join(__dirname,exeFilePath);
+
 function openWebview(address){
     exec(exeFilePath,
         [
@@ -28,7 +30,7 @@ function openWebview(address){
 }
 
 const app = express();
-const port = 2020 // random port
+const port = 0 // random port
 
 app.use(express.static(path.join(__dirname,'html')))
 

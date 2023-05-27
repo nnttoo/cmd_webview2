@@ -38,6 +38,7 @@ void realOpenWebview2(
 	HINSTANCE hInstance,  
 	WebViewConfig config)
 {  
+	 
 	CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
 			[hWnd, config](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
@@ -161,8 +162,7 @@ void openWebview2(
 	config.modewindow = ((r = argmap.getVal("kiosk")) != "") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
 	config.maximized = ((r = argmap.getVal("maximize")) != "") ? SW_MAXIMIZE : SW_NORMAL;
 	config.title = ((r = argmap.getVal("title")) != "") ? r : "auto";
-
-	config.url = "http://localhost:2020";
+	 
 
 	HINSTANCE hInst; 
 	// Store instance handle in our global variable
