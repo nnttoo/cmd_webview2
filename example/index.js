@@ -2,12 +2,13 @@ var exec = require('child_process').execFile;
 
 var arc = require('os').arch();
 
+let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
 if(arc=="x64"){
     console.log("using x64")
+    exeFilePath = "../bin/x64/CmdWebview2.exe";
 }
 
-
-let exeFilePath  = "../bin/x64/CmdWebview2.exe";
+ 
 let cmd = "openweb";
 if(process.argv.length > 2){
 
