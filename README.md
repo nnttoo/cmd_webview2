@@ -112,4 +112,8 @@ You can see a complete example in the example folder.
 
 # Changing the Icon
 
-To change the icon on the webview window, you can use the tool [Resource Hacker](http://www.angusj.com/resourcehacker/).
+To change the icon you can open this project with visual studio in the win32 folder, or you can use a tool like: [Resource Hacker](http://www.angusj.com/resourcehacker/).
+
+# screenshot
+
+![alt ss](https://github.com/nnttoo/cmd_webview2/blob/main/ss.png?raw=true)
