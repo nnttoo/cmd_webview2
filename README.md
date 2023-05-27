@@ -55,6 +55,14 @@ title=Title%20must%20use%20URLencode
 Nodejs open webview
 ```js
     var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
     exec(exeFilePath,
     [
         "fun=openwebview",
@@ -74,6 +82,14 @@ Nodejs open webview
 Nodejs open file dialog
 ```js
     var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
     exec(exeFilePath,
     [
         "fun=openFileDialog", 
