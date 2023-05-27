@@ -117,6 +117,10 @@ To change the icon you can open this project with visual studio in the win32 fol
 # Double click the exe file
 You can add the index.bat file in the same folder as the CmdWebview2.exe file, when you double click CmdWebview.exe, index.bat will be automatically executed, in this way your nodejs application will run without a console window
 
+# demo
+ - [Demo](https://github.com/nnttoo/cmd_webview2/releases/tag/v2demo)
+
+In the demo I use vercel/pkg to package the nodejs application, then this file will be executed with index.bat when the CmdWebview2.exe file is double clicked
 
 # screenshot
 
