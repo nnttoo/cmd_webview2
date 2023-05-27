@@ -114,6 +114,10 @@ You can see a complete example in the example folder.
 
 To change the icon you can open this project with visual studio in the win32 folder, or you can use a tool like: [Resource Hacker](http://www.angusj.com/resourcehacker/).
 
+# Double click the exe file
+You can add the index.bat file in the same folder as the CmdWebview2.exe file, when you double click CmdWebview.exe, index.bat will be automatically executed, in this way your nodejs application will run without a console window
+
+
 # screenshot
 
 ![alt ss](https://github.com/nnttoo/cmd_webview2/blob/main/ss.png?raw=true)

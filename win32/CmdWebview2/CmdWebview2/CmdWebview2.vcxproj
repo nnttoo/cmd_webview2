@@ -137,6 +137,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argtools.h" />
+    <ClInclude Include="execbatfile.h" />
+    <ClInclude Include="hideconsole.h" />
     <ClInclude Include="openFolderDialog.h" />
     <ClInclude Include="openWebview2.h" />
     <ClInclude Include="resource.h" />

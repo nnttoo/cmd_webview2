@@ -38,6 +38,12 @@
     <ClInclude Include="openFolderDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="hideconsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="execbatfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CmdWebview2.rc">

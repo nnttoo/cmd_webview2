@@ -1,8 +1,6 @@
 let express = require('express');
 let path = require('path');
 
-console.log(process.env.mypath);
-
 var exec = require('child_process').execFile;
 var arc = require('os').arch();
 
@@ -11,7 +9,8 @@ if (arc == "x64") {
     console.log("using x64")
     exeFilePath = "../../bin/x64/CmdWebview2.exe";
 }
- 
+
+console.log(process.pid);
 
 exeFilePath = path.join(__dirname, exeFilePath);
 

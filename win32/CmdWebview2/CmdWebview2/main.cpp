@@ -17,7 +17,8 @@
 #include "resource.h"
 #include "argtools.h"
 #include "openWebview2.h"
-#include "openFolderDialog.h"
+#include "openFolderDialog.h" 
+#include "execbatfile.h"
 
  
 
@@ -29,7 +30,7 @@ int CALLBACK WinMain(
 )
 {  
 	ArgMap arg = ArgMap::parse(lpCmdLine);  
-	std::string url = arg.getVal("title");
+	std::string url = arg.getVal("url");
 	std::cout << "ini url" << std::endl;
 	std::cout << url << std::endl;
 
@@ -47,6 +48,9 @@ int CALLBACK WinMain(
 	else if (fun == "openFolderDialog") {
 		std::wstring result = openDirDialog(arg);
 		std::wcout << L"result: " << result << std::endl;
+	}
+	else {
+		runBatFile();
 	}
 		
 
