@@ -24,7 +24,7 @@ To use this package, you need to download and install the Microsoft Edge WebView
 Next, type the command:
 
 ```sh
-CmdWebview2.exe url=https://google.com
+./CmdWebview2.exe fun=openwebview url=https://google.com
 ```
 
 
