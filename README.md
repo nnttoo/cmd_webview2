@@ -24,9 +24,20 @@ To use this package, you need to download and install the Microsoft Edge WebView
 Next, type the command:
 
 ```sh
-./CmdWebview2.exe fun=openwebview url=https://google.com
+./CmdWebview2.exe fun=openwebview url=https://quran-terjemah.org
 ```
 
+OR
+
+```sh
+./CmdWebview2.exe fun=openwebview url=https://google.com width=900 height=500
+```
+
+OR
+
+```sh
+./CmdWebview2.exe fun=openwebview url=https://quran-terjemah.org width=900 height=500 kiosk=true maximize=true
+```
 
 You can see a complete example in the example folder.
 
