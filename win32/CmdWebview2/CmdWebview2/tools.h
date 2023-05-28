@@ -78,3 +78,55 @@ std::vector<std::string> SplitString(const std::string& str, char delimiter) {
 
 	return tokens;
 }
+std::vector<std::wstring> SplitStringW(const std::wstring& str, char delimiter) {
+	std::vector<std::wstring> tokens;
+	size_t start = 0;
+	size_t end = str.find(delimiter);
+
+	while (end != std::string::npos) {
+		tokens.push_back(str.substr(start, end - start));
+		start = end + 1;
+		end = str.find(delimiter, start);
+	}
+
+	tokens.push_back(str.substr(start));
+
+	return tokens;
+}
+
+std::vector<std::string> ParseArguments(LPSTR lpCmdLine)
+{
+	std::vector<std::string> arguments;
+
+	std::string cmdLine(lpCmdLine);
+	std::string argument;
+
+	bool insideQuotes = false;
+
+	for (char c : cmdLine)
+	{
+		if (c == '\"')
+		{
+			insideQuotes = !insideQuotes;
+		}
+		else if (c == ' ' && !insideQuotes)
+		{
+			if (!argument.empty())
+			{
+				arguments.push_back(argument);
+				argument.clear();
+			}
+		}
+		else
+		{
+			argument += c;
+		}
+	}
+
+	if (!argument.empty())
+	{
+		arguments.push_back(argument);
+	}
+
+	return arguments;
+}

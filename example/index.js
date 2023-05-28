@@ -34,7 +34,7 @@ if(cmd == "openweb"){
     exec(exeFilePath,
     [
         "fun=openFileDialog", 
-        "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+        "filter=Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif",
 
     ], (err, data) => { 
 

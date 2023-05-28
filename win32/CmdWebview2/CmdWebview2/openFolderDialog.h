@@ -15,28 +15,25 @@ std::wstring openFileDialog(
     OPENFILENAME ofn;
     TCHAR szFile[260] = { 0 }; 
 
-    std::string filter = argmap.getVal("filter");
+    std::wstring filter = argmap.getVal(L"filter");
     std::wstring wfilter = L"All Files (*.*)\0*.*\0"; 
-    std::vector<std::string> split = SplitString(filter, '|');
+    std::vector<std::wstring> split = SplitStringW(filter, '|');
 
     if (split.size() > 0) {
-        wfilter = ConvertToWideString(split[0]);
+        wfilter = split[0];
         wfilter += L"\0";
-        wfilter += ConvertToWideString(split[1]);
+        wfilter += split[1];
         wfilter += L"\0";
     }
 
       
-
-
-    std::wcout << wfilter << std::endl;
-    std::cout << filter << std::endl;
+     
     
     /*
     Find window owner by class name
     */
-    std::string classname = argmap.getVal("wndClassName");
-    std::wstring wndClassnme = (classname != "")? ConvertToWideString(classname) : L"mywindowsClassName"; 
+    std::wstring classname = argmap.getVal(L"wndClassName");
+    std::wstring wndClassnme = (classname != L"")? classname : L"mywindowsClassName"; 
     HWND hWndOwner = FindWindowW(wndClassnme.c_str(), NULL);
 
     ZeroMemory(&ofn, sizeof(ofn));
@@ -69,8 +66,8 @@ std::wstring openDirDialog(
     TCHAR szDir[MAX_PATH];
 
 
-    std::string classname = argmap.getVal("wndClassName");
-    std::wstring wndClassnme = (classname != "") ? ConvertToWideString(classname) : L"mywindowsClassName";
+    std::wstring classname = argmap.getVal(L"wndClassName");
+    std::wstring wndClassnme = (classname != L"") ? classname : L"mywindowsClassName";
     HWND hWndOwner = FindWindowW(wndClassnme.c_str(), NULL);
 
     ZeroMemory(&bi, sizeof(bi));

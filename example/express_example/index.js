@@ -20,12 +20,12 @@ function openWebview(address) {
         [
             "fun=openwebview",
             "wndClassName=aplikasiWebView",
-            "url=" + encodeURIComponent(address),
+            "url=" + address,
             "width=900",
             "height=600",
             //"kiosk=true",
             //"maximize=true",
-            "title=auto",
+            "title=INI contoh title nya",
 
         ], (err, data) => {
             console.log(data)
@@ -39,7 +39,7 @@ function openFileDilog() {
             [
                 "fun=openFileDialog",
                 "wndClassName=aplikasiWebView",
-                "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+                "filter=Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif",
 
             ], (err, data) => {
 

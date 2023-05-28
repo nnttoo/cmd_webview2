@@ -40,15 +40,16 @@ example 2
 ./CmdWebview2.exe fun=openwebview url=https://google.com width=900 height=500 kiosk=true maximize=true
 ```
 
-example 3
-```sh
-#!/bin/sh
-./bin/x64/CmdWebview2.exe \
-fun=openwebview \
-url=https://quran-terjemah.org \
-width=900 \
-height=500 \
-title=Title%20must%20use%20URLencode
+example 3 using bat file
+```bat
+@echo off
+cd ./bin/x64/
+
+CmdWebview2.exe fun=openwebview ^
+url=https://quran-terjemah.org ^
+width=900 ^
+height=500 ^
+"title=Title Window"
 ```
 # Use with nodejs
 
@@ -71,7 +72,7 @@ Nodejs open webview
         "height=600",
         //"kiosk=true",
         //"maximize=true",
-        "title=Windows%20Title%20Test",
+        "title=Windows Title Test",
 
     ], (err, data) => {
         console.log(data)
@@ -93,7 +94,7 @@ Nodejs open file dialog
     exec(exeFilePath,
     [
         "fun=openFileDialog", 
-        "filter=" + encodeURIComponent("Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
+        "filter=Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
 
     ], (err, data) => { 
 

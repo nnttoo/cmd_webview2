@@ -7,36 +7,46 @@
 #include <map>
  
  
-
+bool startsWith(const std::string& str, const std::string& prefix) {
+	if (str.length() < prefix.length()) {
+		return false;
+	}
+	return str.substr(0, prefix.length()).compare(prefix) == 0;
+}
 class ArgMap
 {
-	std::map<std::string, std::string> mapArg;
+	std::map<std::wstring, std::wstring> mapArg;
 
 	
 	public :
-		std::string getVal(std::string name) {
-			std::string val = mapArg[name];
+		std::wstring getVal(std::wstring name) {
+			std::wstring val = mapArg[name];
 			return val;
 		}
 
 		static ArgMap parse(LPSTR commandLine) {
-			 
-			ArgMap result;
-			std::istringstream iss(commandLine);
-			std::string argument;
-			while (std::getline(iss, argument, ' '))
-			{  
-				size_t pos = argument.find("=");
+			int argc; 
+			
+			LPWSTR cmdLine = GetCommandLine();
 
-				if (pos != -1) { 
-					std::string  name = argument.substr(0, pos);
-					std::string val = argument.substr(pos + 1, argument.size());
-					val = DecodeURIComponent(val); 
-					
+
+			ArgMap result;
+			LPWSTR* wideArgv = CommandLineToArgvW(cmdLine, &argc); 
+			// Mengisi array argv dengan argumen dari wideArgv
+			for (int i = 1; i < argc; i++)
+			{
+				std::wstring argument = wideArgv[i];
+				size_t pos = argument.find(L"=");
+				 
+				if (pos != -1) {
+					std::wstring  name = argument.substr(0, pos);
+					std::wstring val = argument.substr(pos + 1, argument.size());
+
+					//val = DecodeURIComponent(val);
+
 					result.mapArg[name] = val;
 				}
-			}
-
+			} 
 			return result;
 	
 		}

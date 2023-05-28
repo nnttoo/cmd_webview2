@@ -26,10 +26,10 @@ struct WebViewConfig
 {
 	int width;
 	int height; 
-	std::string url;
+	std::wstring url;
 	int modewindow;
 	int maximized;
-	std::string title;
+	std::wstring title;
 };
 
 void realOpenWebview2(
@@ -68,7 +68,7 @@ void realOpenWebview2(
 
 
 						// Schedule an async task to navigate to Bing
-						webview->Navigate(ConvertToWideString(config.url).c_str());
+						webview->Navigate(config.url.c_str());
 
 						// <NavigationEvents>
 						// Step 4 - Navigation events
@@ -87,7 +87,7 @@ void realOpenWebview2(
 								*/
 								return S_OK;
 							}).Get(), &token);
-						if (config.title == "auto") {
+						if (config.title == L"auto") {
 							webview->add_DocumentTitleChanged(Microsoft::WRL::Callback<ICoreWebView2DocumentTitleChangedEventHandler>(
 								[hWnd](ICoreWebView2* webview, IUnknown* args) -> HRESULT {
 									wil::unique_cotaskmem_string title;
@@ -125,8 +125,8 @@ void openWebview2(
 	HICON hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
 
-	std::string classname = argmap.getVal("wndClassName");
-	std::wstring wndClassnme = (classname != "") ? ConvertToWideString(classname) : L"mywindowsClassName";
+	std::wstring classname = argmap.getVal(L"wndClassName");
+	std::wstring wndClassnme = (classname != L"") ? classname : L"mywindowsClassName";
 
 	wcex.cbSize = sizeof(WNDCLASSEX);
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -155,15 +155,15 @@ void openWebview2(
 	}
 
 	std::cout << "mulai membuka windows" << std::endl;
-	std::string r;
+	std::wstring r;
 
 	WebViewConfig config;
-	config.width = ((r = argmap.getVal("width")) != "")? std::stoi(r) : 800;
-	config.height = ((r = argmap.getVal("height")) != "") ? std::stoi(r) : 600; 
-	config.url = ((r = argmap.getVal("url")) != "") ? r : "https://google.com";
-	config.modewindow = ((r = argmap.getVal("kiosk")) != "") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
-	config.maximized = ((r = argmap.getVal("maximize")) != "") ? SW_MAXIMIZE : SW_NORMAL;
-	config.title = ((r = argmap.getVal("title")) != "") ? r : "auto";
+	config.width = ((r = argmap.getVal(L"width")) != L"")? std::stoi(r) : 800;
+	config.height = ((r = argmap.getVal(L"height")) != L"") ? std::stoi(r) : 600; 
+	config.url = ((r = argmap.getVal(L"url")) != L"") ? r : L"https://google.com";
+	config.modewindow = ((r = argmap.getVal(L"kiosk")) != L"") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
+	config.maximized = ((r = argmap.getVal(L"maximize")) != L"") ? SW_MAXIMIZE : SW_NORMAL;
+	config.title = ((r = argmap.getVal(L"title")) != L"") ? r : L"auto";
 	 
 
 	HINSTANCE hInst; 
@@ -171,7 +171,7 @@ void openWebview2(
 	hInst = hInstance;
 	HWND hWnd = CreateWindowW(
 		wndClassnme.c_str(),
-		ConvertToWideString(config.title).c_str(),
+		config.title.c_str(),
 		config.modewindow,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		config.width, config.height,

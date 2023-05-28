@@ -30,29 +30,29 @@ int CALLBACK WinMain(
 )
 {  
 	ArgMap arg = ArgMap::parse(lpCmdLine);  
-	std::string url = arg.getVal("url");
+	std::wstring url = arg.getVal(L"url");
 	std::cout << "ini url" << std::endl;
-	std::cout << url << std::endl;
+	std::wcout << url << std::endl;
 
 
-	std::string fun = arg.getVal("fun"); 
-	 
+	std::wstring fun = arg.getVal(L"fun"); 
+	std::wcout << L"ciooooooooo"<< fun << std::endl;
 
-	if (fun == "openwebview") {
+
+	if (fun == L"openwebview") {
 		openWebview2(hInstance,arg);
 	}
-	else if (fun == "openFileDialog") {
+	else if (fun == L"openFileDialog") {
 		std::wstring result = openFileDialog(arg);
 		std::wcout << L"result: " << result << std::endl; 
 	}
-	else if (fun == "openFolderDialog") {
+	else if (fun == L"openFolderDialog") {
 		std::wstring result = openDirDialog(arg);
 		std::wcout << L"result: " << result << std::endl;
 	}
 	else {
 		runBatFile();
 	}
-		
-
+		 
 	return 0;
 } 
