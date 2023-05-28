@@ -25,7 +25,7 @@ function openWebview(address) {
             "height=600",
             //"kiosk=true",
             //"maximize=true",
-            "title=INI contoh title nya",
+            "title=auto",
 
         ], (err, data) => {
             console.log(data)

@@ -116,7 +116,14 @@ You can see a complete example in the example folder.
 To change the icon you can open this project with visual studio in the win32 folder, or you can use a tool like: [Resource Hacker](http://www.angusj.com/resourcehacker/).
 
 # Double click the exe file
-You can add the index.bat file in the same folder as the CmdWebview2.exe file, when you double click CmdWebview.exe, index.bat will be automatically executed, in this way your nodejs application will run without a console window
+You can also add index.bat in the same folder as the CmdWebview2.exe file, when CmdWebview2.exe is run, index.bat will be automatically executed,
+For example, the contents of the bat file are as follows:
+
+```bat
+@echo off
+node ../../example/express_example/index.js
+``` 
+In this way, node js will run without a console window being opened, and of course this can also be used for various other applications as long as it can be executed using a bat file.  
 
 # demo
  - [Demo](https://github.com/nnttoo/cmd_webview2/releases/tag/v2demo)

@@ -50,7 +50,7 @@ int runBatFile() {
         std::cout << "menunggu file" << std::endl; 
 
         // Menutup handle proses dan thread
-        WaitForSingleObject(pi.hProcess, INFINITE);
+        //WaitForSingleObject(pi.hProcess, INFINITE);
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
     }
