@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# ini digunakan untuk mencopy file dari
+# folder relese visual studio ke folder bin
+
 binfolder="./bin"
 binWin32=$binfolder/Win32
 binX64=$binfolder/x64

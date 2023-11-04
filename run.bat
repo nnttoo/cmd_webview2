@@ -1,7 +1,5 @@
 @echo off
-cd ./bin/x64/
-
-CmdWebview2.exe fun=openwebview ^
+"./bin/x64/CmdWebview2.exe" fun=openwebview ^
 url=https://quran-terjemah.org ^
 width=900 ^
 height=500 ^
