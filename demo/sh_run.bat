@@ -1,3 +1,3 @@
 @echo off
-set exeFileDir=%cd%
+set exeFileDir=../demo_release
 node ./express_demo/index.js

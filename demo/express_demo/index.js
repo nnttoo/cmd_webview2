@@ -21,7 +21,7 @@ function openWebview(address) {
         [
             "fun=openwebview",
             "wndClassName=aplikasiWebView",
-            "url=" + encodeURIComponent(address),
+            "url=" + address,
             "width=900",
             "height=600",
             //"kiosk=true",
