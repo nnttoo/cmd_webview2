@@ -1,0 +1,14 @@
+{
+  "name": "cmd_webview2",
+  "version": "1.0.0",
+  "description": "The **Cmd Webview2** package provides convenience for using Microsoft Edge WebView2 through the command line or various other programming languages that mostly support command line execution.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

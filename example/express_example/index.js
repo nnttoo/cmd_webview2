@@ -1,7 +1,7 @@
 let express = require('express');
-let path = require('path');
-
-console.log(process.env.mypath);
+let path = require('path'); 
+let cmdWebview2 = require("node_cmd_webview2");
+ 
 
 var exec = require('child_process').execFile;
 var arc = require('os').arch();
@@ -15,23 +15,7 @@ if (arc == "x64") {
 
 exeFilePath = path.join(__dirname, exeFilePath);
 
-function openWebview(address) {
-    exec(exeFilePath,
-        [
-            "fun=openwebview",
-            "wndClassName=aplikasiWebView",
-            "url=" + address,
-            "width=900",
-            "height=600",
-            //"kiosk=true",
-            //"maximize=true",
-            "title=auto",
-
-        ], (err, data) => {
-            console.log(data)
-            server.close();
-        })
-}
+ 
 
 function openFileDilog() {
     return new Promise((r, x) => {
@@ -96,8 +80,9 @@ app.get("/openfolderdialog", async (r, x) => {
     x.send(filepath)
 })
 
-let server = app.listen(port, () => {
+let server = app.listen(port, async () => {
     let rport = server.address().port;
     console.log(`http://localhost:${rport}`) 
-    openWebview("http://localhost:" + rport);
+    await cmdWebview2.openWebview("http://localhost:" + rport);
+    server.close();
 })

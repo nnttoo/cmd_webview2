@@ -3,7 +3,7 @@
 # ini digunakan untuk mencopy file dari
 # folder relese visual studio ke folder bin
 
-binfolder="./bin"
+binfolder="./node_cmd_webview2/bin"
 binWin32=$binfolder/Win32
 binX64=$binfolder/x64
 
