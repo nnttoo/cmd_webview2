@@ -38,6 +38,10 @@ int CALLBACK WinMain(
 	std::wstring fun = arg.getVal(L"fun"); 
 	std::wcout << L"ciooooooooo"<< fun << std::endl;
 
+	if (fun == L"") {
+		fun = L"openwebview";
+	}
+
 
 	if (fun == L"openwebview") {
 		openWebview2(hInstance,arg);

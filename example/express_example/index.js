@@ -1,22 +1,22 @@
 let express = require('express');
 let path = require('path');
+let fs = require("fs")
 
 console.log(process.env.mypath);
 
 var exec = require('child_process').execFile;
 var arc = require('os').arch();
 
-let exeFilePath = "../../bin/Win32/CmdWebview2.exe";
+let exeFilePath = "./bin/Win32/CmdWebview2.exe";
 if (arc == "x64") {
     console.log("using x64")
-    exeFilePath = "../../bin/x64/CmdWebview2.exe";
+    exeFilePath = "./bin/x64/CmdWebview2.exe";
 }
+
+exeFilePath = path.join(process.cwd(),exeFilePath); 
  
-
-exeFilePath = path.join(__dirname, exeFilePath);
-
 function openWebview(address) {
-    exec(exeFilePath,
+    exec(exeFilePath ,
         [
             "fun=openwebview",
             "wndClassName=aplikasiWebView",
@@ -28,7 +28,7 @@ function openWebview(address) {
             "title=auto",
 
         ], (err, data) => {
-            console.log(data)
+            console.log("error yaaa" + err)
             server.close();
         })
 }

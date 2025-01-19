@@ -51,11 +51,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\icon\favicon_io (2)\favicon.ico">
+    <CopyFileToFolders Include="..\icon.ico">
       <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

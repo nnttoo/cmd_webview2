@@ -114,6 +114,10 @@ void realOpenWebview2(
 			}).Get()); 
 }
 
+HICON LoadIconFromFile(const std::wstring& filePath) {
+	return (HICON)LoadImage(NULL, filePath.c_str(), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
+}
+
 void openWebview2(
 
 	HINSTANCE hInstance,
@@ -122,7 +126,7 @@ void openWebview2(
 ) {
 	WNDCLASSEX wcex;
 
-	HICON hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	HICON hIcon = LoadIconFromFile(L"icon.ico");
 
 
 	std::wstring classname = argmap.getVal(L"wndClassName");
@@ -160,7 +164,7 @@ void openWebview2(
 	WebViewConfig config;
 	config.width = ((r = argmap.getVal(L"width")) != L"")? std::stoi(r) : 800;
 	config.height = ((r = argmap.getVal(L"height")) != L"") ? std::stoi(r) : 600; 
-	config.url = ((r = argmap.getVal(L"url")) != L"") ? r : L"https://google.com";
+	config.url = ((r = argmap.getVal(L"url")) != L"") ? r : L"https://github.com/nnttoo/cmd_webview2";
 	config.modewindow = ((r = argmap.getVal(L"kiosk")) != L"") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
 	config.maximized = ((r = argmap.getVal(L"maximize")) != L"") ? SW_MAXIMIZE : SW_NORMAL;
 	config.title = ((r = argmap.getVal(L"title")) != L"") ? r : L"auto";
