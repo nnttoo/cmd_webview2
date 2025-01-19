@@ -2,3 +2,4 @@ bin/x64/CmdWebview2.exe.WebView2
 bin/Win32/CmdWebview2.exe.WebView2
 demo_release
 demo/express_demo/node_modules
+*.exe.WebView2/

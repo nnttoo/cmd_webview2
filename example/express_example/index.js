@@ -7,11 +7,11 @@ console.log(process.env.mypath);
 var exec = require('child_process').execFile;
 var arc = require('os').arch();
 
-let exeFilePath = "./bin/Win32/CmdWebview2.exe";
-if (arc == "x64") {
-    console.log("using x64")
-    exeFilePath = "./bin/x64/CmdWebview2.exe";
-}
+let exeFilePath = "./CmdWebview2.exe";
+// if (arc == "x64") {
+//     console.log("using x64")
+//     exeFilePath = "./bin/x64/CmdWebview2.exe";
+// }
 
 exeFilePath = path.join(process.cwd(),exeFilePath); 
  

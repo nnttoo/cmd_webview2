@@ -1,0 +1,20 @@
+{
+  "name": "npm_webview2", 
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy_bin": "node dev_tools.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "exports": {
+    "./webview2": "./webview2.mjs"
+  },
+  "bin": {
+    "npm_webview": "./build_tools.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7"
+  }
+}
