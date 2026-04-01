@@ -90,14 +90,8 @@ function closeWindowWebView() {
 
             ], (err, data) => {
 
-                let filepath = "";
-                for (let l of data.split("\r\n")) {
-                    if (l.startsWith("result:")) {
-                        filepath = l.substring(7, l.length);
-                    }
-                }
-
-                r(filepath);
+                 
+                r(data);
             })
     })
 }
