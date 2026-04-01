@@ -33,24 +33,10 @@ struct WebViewConfig
 	int maximized;
 	std::wstring title;
 	bool isDebugMode = false;
+	std::wstring wclassname;
 };
 
-
-std::wstring GetExeName()
-{
-	wchar_t path[MAX_PATH];
-	GetModuleFileNameW(NULL, path, MAX_PATH);
-
-	std::wstring fullPath(path);
-
-	// ambil nama file saja (tanpa folder)
-	size_t pos = fullPath.find_last_of(L"\\/");
-	std::wstring fileName = (pos != std::wstring::npos)
-		? fullPath.substr(pos + 1)
-		: fullPath;
-
-	return fileName;
-}
+ 
 
 void realOpenWebview2(
 	HWND hWnd,
@@ -60,21 +46,14 @@ void realOpenWebview2(
 
 	PWSTR localAppData = nullptr;
 	SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, NULL, &localAppData);
-
-	std::wstring exeName = GetExeName();
-
-	// contoh: MineDispatch_Simulator.exe → MineDispatch_Simulator
-	size_t dot = exeName.find_last_of(L".");
-	if (dot != std::wstring::npos)
-		exeName = exeName.substr(0, dot);
-
+	 
 	std::wstring userDataFolder =
 		std::wstring(localAppData) +
-		L"\\" + exeName + L".WebView2";
+		L"\\cmdWebView_" + config.wclassname + L".WebView2";
 
 	LogPrint(userDataFolder);
 	 
-	CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
+	CreateCoreWebView2EnvironmentWithOptions(nullptr, userDataFolder.c_str(),  nullptr,
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(
 			[hWnd, config](HRESULT result, ICoreWebView2Environment* env) -> HRESULT {
 
@@ -202,6 +181,7 @@ void openWebview2(
 	std::wstring r;
 
 	WebViewConfig config;
+	config.wclassname = wndClassnme;
 	config.width = ((r = argmap.getVal(L"width")) != L"")? std::stoi(r) : 800;
 	config.height = ((r = argmap.getVal(L"height")) != L"") ? std::stoi(r) : 600; 
 	config.url = ((r = argmap.getVal(L"url")) != L"") ? r : L"https://github.com/nnttoo/cmd_webview2";
