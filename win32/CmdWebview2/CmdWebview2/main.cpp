@@ -49,6 +49,11 @@ int CALLBACK WinMain(
 		std::wstring result = openDirDialog(arg);
 		std::wcout << L"result: " << result << std::endl;
 	}
+
+	else if (fun == L"closewindow") {
+		std::wstring result = closeWebViewWindow(arg);
+		std::wcout << L"result: " << result << std::endl;
+	}
 	else {
 		runBatFile();
 	}

@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "bin": "index.js",
-  "scripts": {
-    "copy_exe": "call ./s_copy.bat",
-    "run": "node ./index.js",
-    "build_pkg" : "pkg .  --windows-hide"
+  "type": "module",
+  "scripts": { 
+    "run": "node ./index.js"
   },
   "author": "",
   "license": "ISC",

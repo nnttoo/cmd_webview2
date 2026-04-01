@@ -141,7 +141,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)</OutDir>
+    <OutDir>..\..\..\bin\$(Platform)</OutDir>
     <IntDir>$(SolutionDir)\obj\$(Configuration)\$(Platform)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='cobadeh|Win32'">
@@ -154,7 +154,7 @@
     <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\bin\$(Configuration)\$(Platform)</OutDir>
+    <OutDir>..\..\..\bin\$(Platform)</OutDir>
     <IntDir>$(SolutionDir)\obj\$(Configuration)\$(Platform)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -182,7 +182,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='cobadeh|Win32'">
@@ -226,7 +226,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='cobadeh|x64'">
@@ -258,6 +258,7 @@
     <ClInclude Include="argtools.h" />
     <ClInclude Include="execbatfile.h" />
     <ClInclude Include="hideconsole.h" />
+    <ClInclude Include="logtool.h" />
     <ClInclude Include="openFolderDialog.h" />
     <ClInclude Include="openWebview2.h" />
     <ClInclude Include="resource.h" />
