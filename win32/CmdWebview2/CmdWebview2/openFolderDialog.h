@@ -95,3 +95,21 @@ std::wstring openDirDialog(
     return result;
      
 }
+
+std::wstring closeWebViewWindow(
+    ArgMap argmap
+) {
+
+    std::wstring classname = argmap.getVal(L"wndClassName");
+    std::wstring wndClassnme = (classname != L"") ? classname : L"mywindowsClassName";
+    HWND hWndOwner = FindWindowW(wndClassnme.c_str(), NULL);
+
+    std::wstring result = L"window not found";
+    if (hWndOwner != NULL) {
+        PostMessage(hWndOwner, WM_CLOSE, 0, 0);
+        result = L"success";
+    }
+
+    return result;
+
+}

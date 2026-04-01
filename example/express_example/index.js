@@ -1,22 +1,28 @@
-let express = require('express');
-let path = require('path');
-let fs = require("fs")
+import express from "express";
+import path from "path";
+import fs from "fs";
+import { execFile } from "child_process";
+import { arch } from "os";
+import { fileURLToPath } from "url";
 
-console.log(process.env.mypath);
+const arc = arch();
 
-var exec = require('child_process').execFile;
-var arc = require('os').arch();
 
-let exeFilePath = "./bin/Win32/CmdWebview2.exe";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+var exec = execFile; 
+//D:\MyFolder\NodejsModule\WebView2Cmd\cmd_webview2\bin\Win32
+let exeFilePath = path.join(__dirname, "../../bin/Win32/CmdWebview2.exe");
+console.log("fileexepath : ", exeFilePath);
 if (arc == "x64") {
     console.log("using x64")
-    exeFilePath = "./bin/x64/CmdWebview2.exe";
+    exeFilePath = path.join(__dirname, "../../bin/x64/CmdWebview2.exe");
 }
 
-exeFilePath = path.join(process.cwd(),exeFilePath); 
- 
+
 function openWebview(address) {
-    exec(exeFilePath ,
+    exec(exeFilePath,
         [
             "fun=openwebview",
             "wndClassName=aplikasiWebView",
@@ -74,7 +80,22 @@ function openFileDilogFolder() {
             })
     })
 }
- 
+
+function closeWindowWebView() {
+    return new Promise((r, x) => {
+        exec(exeFilePath,
+            [
+                "fun=closewindow",
+                "wndClassName=aplikasiWebView",
+
+            ], (err, data) => {
+
+                 
+                r(data);
+            })
+    })
+}
+
 
 
 
@@ -89,6 +110,8 @@ app.get("/openfiledialog", async (r, x) => {
 
     x.send(filepath)
 })
+
+
 app.get("/openfolderdialog", async (r, x) => {
 
     let filepath = await openFileDilogFolder();
@@ -96,8 +119,15 @@ app.get("/openfolderdialog", async (r, x) => {
     x.send(filepath)
 })
 
+app.get("/closewindow", async (r, x) => {
+
+    let filepath = await closeWindowWebView();
+
+    x.send(filepath)
+})
+
 let server = app.listen(port, () => {
     let rport = server.address().port;
-    console.log(`http://localhost:${rport}`) 
+    console.log(`http://localhost:${rport}`)
     openWebview("http://localhost:" + rport);
 })

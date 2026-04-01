@@ -36,12 +36,7 @@ int CALLBACK WinMain(
 
 
 	std::wstring fun = arg.getVal(L"fun"); 
-	std::wcout << L"ciooooooooo"<< fun << std::endl;
-
-	if (fun == L"") {
-		fun = L"openwebview";
-	}
-
+	std::wcout << L"ciooooooooo"<< fun << std::endl; 
 
 	if (fun == L"openwebview") {
 		openWebview2(hInstance,arg);
@@ -52,6 +47,11 @@ int CALLBACK WinMain(
 	}
 	else if (fun == L"openFolderDialog") {
 		std::wstring result = openDirDialog(arg);
+		std::wcout << L"result: " << result << std::endl;
+	}
+
+	else if (fun == L"closewindow") {
+		std::wstring result = closeWebViewWindow(arg);
 		std::wcout << L"result: " << result << std::endl;
 	}
 	else {

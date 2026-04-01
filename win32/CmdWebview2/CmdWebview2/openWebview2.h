@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <windows.h>
 #include <stdlib.h>
@@ -10,11 +10,13 @@
 // <IncludeHeader>
 // include WebView2 header
 #include "WebView2.h"
+#include "logtool.h"
 
 
 #include "resource.h"
 #include "tools.h"
 #include "argtools.h"
+#include <shlobj.h>
  
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);  
@@ -32,11 +34,44 @@ struct WebViewConfig
 	std::wstring title;
 };
 
+
+std::wstring GetExeName()
+{
+	wchar_t path[MAX_PATH];
+	GetModuleFileNameW(NULL, path, MAX_PATH);
+
+	std::wstring fullPath(path);
+
+	// ambil nama file saja (tanpa folder)
+	size_t pos = fullPath.find_last_of(L"\\/");
+	std::wstring fileName = (pos != std::wstring::npos)
+		? fullPath.substr(pos + 1)
+		: fullPath;
+
+	return fileName;
+}
+
 void realOpenWebview2(
 	HWND hWnd,
 	HINSTANCE hInstance,  
 	WebViewConfig config)
 {  
+
+	PWSTR localAppData = nullptr;
+	SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, NULL, &localAppData);
+
+	std::wstring exeName = GetExeName();
+
+	// contoh: MineDispatch_Simulator.exe → MineDispatch_Simulator
+	size_t dot = exeName.find_last_of(L".");
+	if (dot != std::wstring::npos)
+		exeName = exeName.substr(0, dot);
+
+	std::wstring userDataFolder =
+		std::wstring(localAppData) +
+		L"\\" + exeName + L".WebView2";
+
+	LogPrint(userDataFolder);
 	 
 	CreateCoreWebView2EnvironmentWithOptions(nullptr, nullptr, nullptr,
 		Microsoft::WRL::Callback<ICoreWebView2CreateCoreWebView2EnvironmentCompletedHandler>(

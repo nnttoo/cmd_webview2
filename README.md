@@ -68,6 +68,7 @@ Nodejs open webview
     [
         "fun=openwebview",
         "url=https://quran-terjemah.org",
+        "wndClassName=aplikasiWebView",
         "width=1300", 
         "height=600",
         //"kiosk=true",
@@ -94,6 +95,7 @@ Nodejs open file dialog
     exec(exeFilePath,
     [
         "fun=openFileDialog", 
+        "wndClassName=aplikasiWebView",
         "filter=Image Files |*.bmp;*.jpg;*.jpeg;*.png;*.gif"),
 
     ], (err, data) => { 
@@ -107,6 +109,32 @@ Nodejs open file dialog
 
         console.log(filepath);
     })
+```
+
+Nodejs CLose Window By Name
+
+```js 
+
+    var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
+    exec(exeFilePath,
+    [
+        "fun=closewindow",
+        "wndClassName=aplikasiWebView",
+
+    ], (err, data) => {
+
+            
+        r(data);
+    })
+
 ```
 
 You can see a complete example in the example folder.

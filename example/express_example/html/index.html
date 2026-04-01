@@ -25,6 +25,10 @@
                 aria-label="Recipient's username" aria-describedby="button-addon2">
             <button id="openfolder" class="btn btn-outline-secondary" type="button">Open File Dialog</button>
         </div>
+
+        
+        <h4>Close Window</h4>
+        <button id="closewindow" class="btn btn-outline-secondary" type="button">Close Window Manually</button>
  
     </div>
 
@@ -53,6 +57,20 @@
             btn.onclick = async () => {
                 console.log("click folder")
                 const response = await fetch("/openfolderdialog");
+                let result = await response.text();
+
+                /** @type {HTMLInputElement} */
+                let input = document.querySelector('#ipt_dialog_folder');
+                input.value = result;
+            }
+        })();
+
+         (() => {
+            /** @type {HTMLButtonElement} */
+            let btn = document.querySelector("#closewindow");
+            btn.onclick = async () => {
+                console.log("click folder")
+                const response = await fetch("/closewindow");
                 let result = await response.text();
 
                 /** @type {HTMLInputElement} */

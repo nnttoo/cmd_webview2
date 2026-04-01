@@ -44,6 +44,9 @@
     <ClInclude Include="execbatfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="logtool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CmdWebview2.rc">
@@ -54,5 +57,11 @@
     <CopyFileToFolders Include="..\icon.ico">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="..\index.bat">
+      <Filter>Source Files</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>
