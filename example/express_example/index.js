@@ -32,6 +32,7 @@ function openWebview(address) {
             //"kiosk=true",
             //"maximize=true",
             "title=auto",
+            //"isDebugMode=true"
 
         ], (err, data) => {
             console.log("error yaaa" + err)

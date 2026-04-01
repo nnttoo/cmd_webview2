@@ -74,6 +74,7 @@ Nodejs open webview
         //"kiosk=true",
         //"maximize=true",
         "title=Windows Title Test",
+        //"isDebugMode=true"
 
     ], (err, data) => {
         console.log(data)

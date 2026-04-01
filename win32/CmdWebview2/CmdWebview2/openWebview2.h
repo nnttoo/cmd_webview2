@@ -32,6 +32,7 @@ struct WebViewConfig
 	int modewindow;
 	int maximized;
 	std::wstring title;
+	bool isDebugMode = false;
 };
 
 
@@ -91,10 +92,14 @@ void realOpenWebview2(
 						webview->get_Settings(&settings);
 						settings->put_IsScriptEnabled(TRUE);
 						settings->put_AreDefaultScriptDialogsEnabled(FALSE);
-						settings->put_IsWebMessageEnabled(TRUE);
-						settings->put_AreDevToolsEnabled(FALSE);
+						settings->put_IsWebMessageEnabled(TRUE); 
 						settings->put_AreDefaultContextMenusEnabled(FALSE);
 						// Resize WebView to fit the bounds of the parent window
+
+
+						settings->put_AreDevToolsEnabled(config.isDebugMode);
+						settings->put_AreDefaultContextMenusEnabled(config.isDebugMode);
+
 						RECT bounds;
 						GetClientRect(hWnd, &bounds);
 
@@ -203,6 +208,7 @@ void openWebview2(
 	config.modewindow = ((r = argmap.getVal(L"kiosk")) != L"") ? WS_POPUP : WS_OVERLAPPEDWINDOW;
 	config.maximized = ((r = argmap.getVal(L"maximize")) != L"") ? SW_MAXIMIZE : SW_NORMAL;
 	config.title = ((r = argmap.getVal(L"title")) != L"") ? r : L"auto";
+	config.isDebugMode = ((r = argmap.getVal(L"isDebugMode")) != L"") ? TRUE : FALSE;
 	 
 
 	HINSTANCE hInst; 
