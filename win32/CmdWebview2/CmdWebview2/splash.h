@@ -1,8 +1,10 @@
-#pragma once 
+﻿#pragma once
 #include <windows.h>
 #include <gdiplus.h>
 #include <string>
 #include <thread>
+#include <atomic>
+
 #pragma comment(lib, "Gdiplus.lib")
 
 using namespace Gdiplus;
@@ -15,10 +17,11 @@ private:
     HWND hwnd = nullptr;
     std::thread th;
     std::wstring imgPath;
+    std::atomic<bool> running{ true };
 
     static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
-        MySplash* self;
+        MySplash* self = (MySplash*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 
         if (msg == WM_NCCREATE)
         {
@@ -27,14 +30,13 @@ private:
             SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG_PTR)self);
         }
 
-        self = (MySplash*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
-
         if (!self)
             return DefWindowProc(hWnd, msg, wParam, lParam);
 
         switch (msg)
         {
         case WM_CREATE:
+        {
             self->img = new Image(self->imgPath.c_str());
 
             if (self->img && self->img->GetLastStatus() == Ok)
@@ -44,13 +46,13 @@ private:
 
                 SetWindowPos(hWnd, NULL, 0, 0, w, h, SWP_NOMOVE);
             }
-            break;
+        }
+        break;
 
         case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-
             Graphics g(hdc);
 
             if (self->img)
@@ -60,12 +62,12 @@ private:
         }
         break;
 
+        case WM_CLOSE:
+            DestroyWindow(hWnd);
+            return 0;
+
         case WM_DESTROY:
-            if (self->img)
-            {
-                delete self->img;
-                self->img = nullptr;
-            }
+            self->running = false;
             PostQuitMessage(0);
             return 0;
         }
@@ -88,15 +90,15 @@ private:
         RegisterClass(&wc);
 
         hwnd = CreateWindowEx(
-            WS_EX_TOPMOST,
+            WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
             wc.lpszClassName,
             L"",
             WS_POPUP,
-            0, 0, 300, 200,
+            0, 0, 100, 100,
             NULL, NULL, hInst, this
         );
 
-        // center window
+        // center
         int screenW = GetSystemMetrics(SM_CXSCREEN);
         int screenH = GetSystemMetrics(SM_CYSCREEN);
 
@@ -115,12 +117,17 @@ private:
         ShowWindow(hwnd, SW_SHOW);
         UpdateWindow(hwnd);
 
-        // message loop di thread sendiri
         MSG msg;
-        while (GetMessage(&msg, NULL, 0, 0))
+        while (running && GetMessage(&msg, NULL, 0, 0))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
+        }
+
+        if (img)
+        {
+            delete img;
+            img = nullptr;
         }
 
         GdiplusShutdown(token);
@@ -135,18 +142,20 @@ public:
 
     void close()
     {
+        running = false;
+
         if (hwnd)
         {
             PostMessage(hwnd, WM_CLOSE, 0, 0);
         }
 
         if (th.joinable())
-            th.join();
+        {
+            th.detach(); // 👈 penting: jangan block
+        }
     }
 };
 
-
-/// helper biar clean
 inline MySplash* showSplash(const std::wstring& path)
 {
     return new MySplash(path);

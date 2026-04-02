@@ -21,7 +21,7 @@
 #include "execbatfile.h"
 #include "./splash.h"
 
- 
+
 
 int CALLBACK WinMain(
 	_In_ HINSTANCE hInstance,
@@ -29,29 +29,29 @@ int CALLBACK WinMain(
 	_In_ LPSTR     lpCmdLine,
 	_In_ int       nCmdShow
 )
-{  
-	ArgMap arg = ArgMap::parse(lpCmdLine);  
+{
+
+	if (!lpCmdLine || lpCmdLine[0] == '\0')
+	{
+
+	}
+
+	ArgMap arg = ArgMap::parse(lpCmdLine);
 	std::wstring url = arg.getVal(L"url");
-	std::cout << "ini url" << std::endl;
+	std::cout << "url" << std::endl;
 	std::wcout << url << std::endl;
 
 
-	MySplash* mysplash = NULL;
-	std::wstring fun = arg.getVal(L"fun"); 
-	std::wcout << L"ciooooooooo"<< fun << std::endl; 
+	std::wstring fun = arg.getVal(L"fun");
 
 	if (fun == L"openwebview") {
 
-		if (mysplash != NULL) {
-			mysplash->close();
-			mysplash = NULL;
-		}
 
-		openWebview2(hInstance,arg);
+		openWebview2(hInstance, arg);
 	}
 	else if (fun == L"openFileDialog") {
 		std::wstring result = openFileDialog(arg);
-		std::wcout << L"result: " << result << std::endl; 
+		std::wcout << L"result: " << result << std::endl;
 	}
 	else if (fun == L"openFolderDialog") {
 		std::wstring result = openDirDialog(arg);
@@ -63,9 +63,21 @@ int CALLBACK WinMain(
 		std::wcout << L"result: " << result << std::endl;
 	}
 	else {
-		mysplash = showSplash(L"splash.png");
+
+		MySplash* mysplash = NULL;
+		if (FileExists(L"splash.png")) 
+		{
+
+			mysplash = showSplash(L"splash.png");
+		}
 		runBatFile();
+		Sleep(2000);
+		if (mysplash != NULL) {
+			mysplash->close();
+		}
+		
+
 	}
-		 
+
 	return 0;
-} 
+}
