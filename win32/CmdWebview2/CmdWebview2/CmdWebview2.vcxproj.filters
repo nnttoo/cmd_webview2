@@ -47,6 +47,9 @@
     <ClInclude Include="logtool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="splash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CmdWebview2.rc">
@@ -58,6 +61,9 @@
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="..\index.bat">
+      <Filter>Source Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="C:\Users\Anto\Downloads\puasa\eeeee\splash.png">
       <Filter>Source Files</Filter>
     </CopyFileToFolders>
   </ItemGroup>

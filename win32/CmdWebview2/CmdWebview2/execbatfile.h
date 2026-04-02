@@ -15,6 +15,7 @@ int runBatFile() {
 
     std::cout << "jalani file" << std::endl;
 
+
     // Mendapatkan path eksekusi
     wchar_t  exePath[MAX_PATH];
     GetModuleFileName(NULL, exePath, MAX_PATH);
@@ -27,7 +28,7 @@ int runBatFile() {
     // Memeriksa keberadaan file batch
     if (!FileExists(batPath))
     {
-        std::cout << "File batch tidak ditemukan." << std::endl;
+        std::cout << "File batch tidak ditemukan." << std::endl; 
         return 0;
     }
 
@@ -59,7 +60,7 @@ int runBatFile() {
         // Gagal membuat proses
         std::cout << "Gagal menjalankan file batch. Error: " << GetLastError() << std::endl;
     }
-
+     
     return 0;
 
 }

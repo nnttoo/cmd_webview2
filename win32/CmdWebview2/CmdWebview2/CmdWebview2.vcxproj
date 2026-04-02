@@ -262,6 +262,7 @@
     <ClInclude Include="openFolderDialog.h" />
     <ClInclude Include="openWebview2.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="splash.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +270,9 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="C:\Users\Anto\Downloads\puasa\eeeee\splash.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

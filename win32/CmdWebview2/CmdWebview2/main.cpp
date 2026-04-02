@@ -19,6 +19,7 @@
 #include "openWebview2.h"
 #include "openFolderDialog.h" 
 #include "execbatfile.h"
+#include "./splash.h"
 
  
 
@@ -35,10 +36,17 @@ int CALLBACK WinMain(
 	std::wcout << url << std::endl;
 
 
+	MySplash* mysplash = NULL;
 	std::wstring fun = arg.getVal(L"fun"); 
 	std::wcout << L"ciooooooooo"<< fun << std::endl; 
 
 	if (fun == L"openwebview") {
+
+		if (mysplash != NULL) {
+			mysplash->close();
+			mysplash = NULL;
+		}
+
 		openWebview2(hInstance,arg);
 	}
 	else if (fun == L"openFileDialog") {
@@ -55,6 +63,7 @@ int CALLBACK WinMain(
 		std::wcout << L"result: " << result << std::endl;
 	}
 	else {
+		mysplash = showSplash(L"splash.png");
 		runBatFile();
 	}
 		 
