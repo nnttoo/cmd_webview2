@@ -127,16 +127,119 @@ Nodejs CLose Window By Name
     }
 
     exec(exeFilePath,
-    [
-        "fun=closewindow",
-        "wndClassName=aplikasiWebView",
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=close",
 
-    ], (err, data) => {
+        ], (err, data) => { 
+            console.log(data);
+        });
 
-            
-        r(data);
-    })
+```
 
+Nodejs Move Window By Name
+
+```js 
+
+    var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
+     exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=move",
+            "top=0",
+            "left=0",
+
+        ], (err, data) => {
+            console.log(data);
+        });
+
+```
+
+
+Nodejs Resize Window By Name
+
+```js 
+
+    var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=resize",
+            "width=600",
+            "height=600",
+
+        ], (err, data) => {
+            console.log(data);
+        });
+```
+
+
+Nodejs Maximize Window By Name
+
+```js 
+
+    var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=maximize" 
+
+        ], (err, data) => {
+            console.log(data);
+        });
+```
+
+
+Nodejs Minimize Window By Name
+
+```js 
+
+    var exec = require('child_process').execFile;
+    var arc = require('os').arch();
+
+    let exeFilePath  = "../bin/Win32/CmdWebview2.exe";
+    if(arc=="x64"){
+        console.log("using x64")
+        exeFilePath = "../bin/x64/CmdWebview2.exe";
+    }
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=minimize" 
+
+        ], (err, data) => {
+            console.log(data);
+        });
 ```
 
 You can see a complete example in the example folder.

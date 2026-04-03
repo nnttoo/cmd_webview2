@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <link rel="stylesheet" href="/bootstrap.css?v=9"> 
+    <link rel="stylesheet" href="/bootstrap.css?v=9">
     <title>Page Titlesssssssss</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
@@ -26,14 +26,25 @@
             <button id="openfolder" class="btn btn-outline-secondary" type="button">Open File Dialog</button>
         </div>
 
-        
-        <h4>Close Window</h4>
-        <button id="closewindow" class="btn btn-outline-secondary" type="button">Close Window Manually</button>
- 
+
+        <h4>Control Window</h4>
+        <button  onclick="(()=>{fetch(`/closewindow`); })()" class="btn btn-outline-secondary" type="button">Close Window Manually</button>
+        <button  onclick="(()=>{fetch(`/movewindow`); })()" class="btn btn-outline-secondary" type="button">Move Window</button>
+        <button  onclick="(()=>{fetch(`/resize`); })()" class="btn btn-outline-secondary" type="button">Resize Window</button>
+        <button  onclick="(()=>{fetch(`/maximize`); })()" class="btn btn-outline-secondary" type="button">Maximize Window</button>
+        <button  onclick="(()=>{fetch(`/minimize`); })()" class="btn btn-outline-secondary" type="button">Minimize Window</button>
+
     </div>
 
     <script>
 
+        function sleep(n) {
+            return new Promise((r, x) => {
+                setTimeout(() => {
+                    r();
+                }, n);
+            })
+        }
         setTimeout(() => {
             document.title = "test change title";
         }, 3000);
@@ -63,23 +74,15 @@
                 let input = document.querySelector('#ipt_dialog_folder');
                 input.value = result;
             }
-        })();
+        })(); 
 
-         (() => {
-            /** @type {HTMLButtonElement} */
-            let btn = document.querySelector("#closewindow");
-            btn.onclick = async () => {
-                console.log("click folder")
-                const response = await fetch("/closewindow");
-                let result = await response.text();
-
-                /** @type {HTMLInputElement} */
-                let input = document.querySelector('#ipt_dialog_folder');
-                input.value = result;
+        (async () => {
+            while(true){
+                await sleep(1000);
+                await fetch("/pingserver");
             }
         })();
 
-         
     </script>
 </body>
 

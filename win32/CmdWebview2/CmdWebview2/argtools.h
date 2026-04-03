@@ -47,6 +47,7 @@ class ArgMap
 					result.mapArg[name] = val;
 				}
 			} 
+			LocalFree(wideArgv);
 			return result;
 	
 		}

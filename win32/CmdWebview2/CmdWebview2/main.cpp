@@ -56,7 +56,7 @@ int CALLBACK WinMain(
 		std::wcout << L"result: " << result << std::endl;
 	}
 
-	else if (fun == L"closewindow") {
+	else if (fun == L"controlwindow") {
 		std::wstring result = closeWebViewWindow(arg);
 		std::wcout << L"result: " << result << std::endl;
 	}

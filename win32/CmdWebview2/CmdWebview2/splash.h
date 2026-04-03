@@ -107,7 +107,7 @@ public:
         RegisterClass(&wc);
 
         hwnd = CreateWindowEx(
-            WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
+            WS_EX_TOPMOST | WS_EX_APPWINDOW,
             wc.lpszClassName,
             L"",
             WS_POPUP,

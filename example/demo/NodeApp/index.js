@@ -11,7 +11,7 @@ const arc = arch();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-var exec = execFile; 
+var exec = execFile;
 //D:\MyFolder\NodejsModule\WebView2Cmd\cmd_webview2\bin\Win32
 let exeFilePath = path.join(__dirname, "../CmdWebview2.exe");
 console.log("fileexepath : ", exeFilePath);
@@ -82,24 +82,30 @@ function openFileDilogFolder() {
     })
 }
 
-function closeWindowWebView() {
+function sleep(n) {
     return new Promise((r, x) => {
-        exec(exeFilePath,
-            [
-                "fun=closewindow",
-                "wndClassName=aplikasiWebView",
-
-            ], (err, data) => {
-
-                 
-                r(data);
-            })
+        setTimeout(() => {
+            r();
+        }, n);
     })
 }
 
 
+let timePing = Date.now();
 
+async function runCheck() {
+    console.log("run check");
+    while (true) {
+        if (Date.now() > timePing + (1000 * 10)) {
+            break;
+        }
 
+        await sleep(1000);
+    }
+    console.log("process exit");
+    process.exit();
+}
+runCheck();
 
 const app = express();
 const port = 0; // 0 random port
@@ -120,11 +126,94 @@ app.get("/openfolderdialog", async (r, x) => {
     x.send(filepath)
 })
 
+
+app.get("/pingserver", async (r, x) => {
+
+    timePing = Date.now();
+
+    x.send("ok")
+})
+
 app.get("/closewindow", async (r, x) => {
 
-    let filepath = await closeWindowWebView();
+    exec(
+        exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=close",
 
-    x.send(filepath)
+        ],
+        (err, data) => {
+            console.log(data);
+        });
+
+    x.send("ok")
+});
+
+
+app.get("/movewindow", async (r, x) => {
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=move",
+            "top=0",
+            "left=0",
+
+        ], (err, data) => {
+            console.log(data);
+        });
+
+    x.send("ok")
+})
+
+
+app.get("/resize", async (r, x) => {
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=resize",
+            "width=600",
+            "height=600",
+
+        ], (err, data) => {
+            console.log(data);
+        });
+
+    x.send("ok")
+})
+app.get("/maximize", async (r, x) => {
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=maximize" 
+
+        ], (err, data) => {
+            console.log(data);
+        });
+
+    x.send("ok")
+})
+
+app.get("/minimize", async (r, x) => {
+
+    exec(exeFilePath,
+        [
+            "fun=controlwindow",
+            "wndClassName=aplikasiWebView",
+            "controlcmd=minimize" 
+
+        ], (err, data) => {
+            console.log(data);
+        });
+
+    x.send("ok")
 })
 
 let server = app.listen(port, () => {
