@@ -30,11 +30,7 @@ int CALLBACK WinMain(
 	_In_ int       nCmdShow
 )
 {
-
-	if (!lpCmdLine || lpCmdLine[0] == '\0')
-	{
-
-	}
+	 
 
 	ArgMap arg = ArgMap::parse(lpCmdLine);
 	std::wstring url = arg.getVal(L"url");
@@ -46,8 +42,10 @@ int CALLBACK WinMain(
 
 	if (fun == L"openwebview") {
 
+		closeSplashScreen(); 
+		MyWebView mweb = MyWebView();
 
-		openWebview2(hInstance, arg);
+		mweb.openWebview2(hInstance, arg);
 	}
 	else if (fun == L"openFileDialog") {
 		std::wstring result = openFileDialog(arg);
@@ -63,17 +61,13 @@ int CALLBACK WinMain(
 		std::wcout << L"result: " << result << std::endl;
 	}
 	else {
-
-		MySplash* mysplash = NULL;
-		if (FileExists(L"splash.png")) 
+		 
+		
+		runBatFile(); 
+		if (FileExists(L"splash.png"))
 		{
 
-			mysplash = showSplash(L"splash.png");
-		}
-		runBatFile();
-		Sleep(2000);
-		if (mysplash != NULL) {
-			mysplash->close();
+			showSplashScreen(L"splash.png");
 		}
 		
 

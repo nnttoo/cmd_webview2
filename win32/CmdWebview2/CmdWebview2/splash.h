@@ -9,15 +9,14 @@
 
 using namespace Gdiplus;
 
+static constexpr LPCWSTR splashScreenClassName = L"mysplashclassname";
 class MySplash
 {
 private:
     ULONG_PTR token = 0;
     Image* img = nullptr;
-    HWND hwnd = nullptr;
-    std::thread th;
-    std::wstring imgPath;
-    std::atomic<bool> running{ true };
+    HWND hwnd = nullptr; 
+    std::wstring imgPath; 
 
     static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
@@ -66,8 +65,7 @@ private:
             DestroyWindow(hWnd);
             return 0;
 
-        case WM_DESTROY:
-            self->running = false;
+        case WM_DESTROY: 
             PostQuitMessage(0);
             return 0;
         }
@@ -75,7 +73,8 @@ private:
         return DefWindowProc(hWnd, msg, wParam, lParam);
     }
 
-    void threadFunc()
+public:
+    void showAndWait()
     {
         GdiplusStartupInput in;
         GdiplusStartup(&token, &in, NULL);
@@ -85,7 +84,7 @@ private:
         WNDCLASS wc = {};
         wc.lpfnWndProc = WndProc;
         wc.hInstance = hInst;
-        wc.lpszClassName = L"MySplashWnd";
+        wc.lpszClassName = splashScreenClassName;
 
         RegisterClass(&wc);
 
@@ -118,7 +117,7 @@ private:
         UpdateWindow(hwnd);
 
         MSG msg;
-        while (running && GetMessage(&msg, NULL, 0, 0))
+        while ( GetMessage(&msg, NULL, 0, 0))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -133,30 +132,19 @@ private:
         GdiplusShutdown(token);
     }
 
-public:
     MySplash(const std::wstring& path)
     {
-        imgPath = path;
-        th = std::thread(&MySplash::threadFunc, this);
+        imgPath = path; 
     }
-
-    void close()
-    {
-        running = false;
-
-        if (hwnd)
-        {
-            PostMessage(hwnd, WM_CLOSE, 0, 0);
-        }
-
-        if (th.joinable())
-        {
-            th.detach(); // 👈 penting: jangan block
-        }
-    }
+     
 };
-
-inline MySplash* showSplash(const std::wstring& path)
-{
-    return new MySplash(path);
+inline void showSplashScreen(const std::wstring& path) {
+    MySplash mySplash = MySplash(path);
+    mySplash.showAndWait();
+}
+inline void closeSplashScreen() {
+    HWND hWndOwner = FindWindowW(splashScreenClassName, NULL);
+    if (hWndOwner != NULL) {
+        PostMessage(hWndOwner, WM_CLOSE, 0, 0);
+    }
 }

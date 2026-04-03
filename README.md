@@ -15,6 +15,7 @@ There are several main features, including:
 There are several examples in the example folder for usage with Node.js.
 
 
+
 # Usage
 
 To use this package, you need to download and install the Microsoft Edge WebView2 runtime:
