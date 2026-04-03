@@ -42,8 +42,16 @@ private:
             {
                 UINT w = self->img->GetWidth();
                 UINT h = self->img->GetHeight();
+                // Ambil ukuran layar
+                int screenW = GetSystemMetrics(SM_CXSCREEN);
+                int screenH = GetSystemMetrics(SM_CYSCREEN);
 
-                SetWindowPos(hWnd, NULL, 0, 0, w, h, SWP_NOMOVE);
+                // Hitung posisi tengah
+                int posX = (screenW - (int)w) / 2;
+                int posY = (screenH - (int)h) / 2;
+
+                // Atur posisi DAN ukuran sekaligus di sini
+                SetWindowPos(hWnd, NULL, posX, posY, (int)w, (int)h, SWP_NOZORDER);
             }
         }
         break;
@@ -55,7 +63,17 @@ private:
             Graphics g(hdc);
 
             if (self->img)
-                g.DrawImage(self->img, 0, 0);
+            {
+                // Ambil ukuran area dalam jendela (client area)
+                RECT rc;
+                GetClientRect(hWnd, &rc);
+
+                // Konversi RECT ke Gdiplus::Rect
+                Rect destRect(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+
+                // Gambar ulang dengan memaksa ukuran sesuai destRect
+                g.DrawImage(self->img, destRect);
+            }
 
             EndPaint(hWnd, &ps);
         }
